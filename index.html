@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SVG Shapes</title>
+    <script src="script.js"></script>
   </head>
   <body>
     <div class="board">
@@ -11,49 +12,5 @@
       <object data="circle.svg"></object>
       <object data="line.svg"></object>
     </div>
-    <script>
-      const hypo = (x, y, threshold) => {
-        const newX = x + threshold;
-        const newY = y + threshold;
-        const points = [[newX, y].join(" "), [newX, newY].join(" ")].join(",");
-
-        return { points, newX, newY };
-      };
-
-      const sideOnBase = (x, y, threshold) => {
-        const newX = x + threshold;
-        const newY = y + threshold;
-        const points = [[x, newY].join(" "), [newX, newY].join(" ")].join(",");
-
-        return { points, newX, newY };
-      };
-
-      const generatePoints = (
-        x,
-        y,
-        n,
-        threshold,
-        pointsGenerator = hypo,
-        points = `${x} ${y}`
-      ) => {
-        if (n <= 0) {
-          return points;
-        }
-
-        const {
-          points: newPoints,
-          newX,
-          newY,
-        } = pointsGenerator(x, y, threshold);
-
-        return generatePoints(
-          newX,
-          newY,
-          n - 1,
-          threshold,
-          points.concat(",", newPoints)
-        );
-      };
-    </script>
   </body>
 </html>
